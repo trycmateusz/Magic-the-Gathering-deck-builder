@@ -1,4 +1,4 @@
-import { Navigation } from '@/src/components/Navigation'
+import { Navigation } from '@/src/components/Navigation/Navigation'
 import './index.css'
 
 export default function RootLayout({

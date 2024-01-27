@@ -1,5 +1,5 @@
 .nav {
-  @apply text-xl border-b border-main-black-lighter;
+  @apply sticky top-0 text-xl bg-main-black border-b border-main-black-lighter z-50;
   &__list {
     @apply flex max-w-max border-r border-main-black-lighter;
     &-item {

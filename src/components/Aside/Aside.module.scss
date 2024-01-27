@@ -1,9 +1,15 @@
 .aside {
-  @apply flex flex-col items-center gap-5 w-max border-r border-main-black-lighter;
+  @apply sticky top-[Calc(var(--nav-height)_+_var(--general-border-width))] flex flex-col items-center max-w-max w-1/2 h-[Calc(100svh_-_var(--nav-height))] border-r border-main-black-lighter divide-solid z-40;
   &__info {
-    @apply flex flex-col items-center p-5;
+    @apply flex flex-col w-full items-center p-5 border-b border-main-black-lighter;
   }
   &__reset {
-    @apply flex items-center justify-between p-5 w-full border-t border-b border-main-black-lighter text-xl
+    @apply relative text-left p-5 w-full border-main-black-lighter text-xl;
+    &-image {
+      @apply absolute top-[Calc(50%_-_3px)] right-5 -translate-y-1/2 h-7 w-7;
+    }
+  }
+  &__filters {
+    @apply flex flex-col gap-5 w-full p-5 text-base border-t border-main-black-lighter overflow-y-scroll;
   }
 }

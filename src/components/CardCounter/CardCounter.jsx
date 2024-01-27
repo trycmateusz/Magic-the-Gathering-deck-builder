@@ -1,15 +1,15 @@
 import Image from 'next/image'
 import style from './CardCounter.module.scss'
 
-export default function CardCounter () {
-  const cards = 12
+export function CardCounter () {
+  const cardsLength = 12
   const maxCards = 30
   const minCards = 20
   return (
     <div className={style['card-counter']}>
       <div className={style['card-counter__count']}>
         <span>
-          {cards}
+          {cardsLength}
         </span>
         <Image 
           src="/text-breaker.svg" 

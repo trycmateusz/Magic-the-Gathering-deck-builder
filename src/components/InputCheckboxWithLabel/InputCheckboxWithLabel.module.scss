@@ -1,0 +1,16 @@
+.box {
+  @apply flex gap-2;
+  &__label {
+    @apply text-xl  
+  }
+  &__input {
+    @apply bg-main-black-lighter p-2 text-base transition-colors;
+    &:hover,
+    &:focus {
+      @apply outline-none
+    }
+    &:focus {
+      @apply text-mana-blue
+    }
+  }
+}

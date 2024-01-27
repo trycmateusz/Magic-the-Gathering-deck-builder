@@ -1,14 +1,9 @@
 import type { NavigationLink } from '@/types/Navigation'
-import { useRouter } from 'next/router'
-import style from './Navigation.module.scss'
 import Link from 'next/link'
-import BackgroundGlow from '@/src/components/BackgroundGlow'
+import style from './Navigation.module.scss'
+import { NavigationBackgroundGlow } from '@/src/components/NavigationBackgroundGlow/NavigationBackgroundGlow'
 
 export function Navigation () {
-  const router = useRouter()
-  const forCurrentRoute = (link: NavigationLink) => {
-    return link.href === router.asPath
-  }
   const links: NavigationLink[] = [
     {
       id: crypto.randomUUID(),
@@ -29,7 +24,7 @@ export function Navigation () {
             <Link className={`main-transition ${style['nav__list-item-link']}`} href={link.href}>
               {link.text}
             </Link>
-            <BackgroundGlow conditionMet={forCurrentRoute(link)} />
+            <NavigationBackgroundGlow link={link} />
           </li>
         ))}
       </ul>
