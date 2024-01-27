@@ -1,0 +1,9 @@
+.aside {
+  @apply flex flex-col items-center gap-5 w-max border-r border-main-black-lighter;
+  &__info {
+    @apply flex flex-col items-center p-5;
+  }
+  &__reset {
+    @apply flex items-center justify-between p-5 w-full border-t border-b border-main-black-lighter text-xl
+  }
+}

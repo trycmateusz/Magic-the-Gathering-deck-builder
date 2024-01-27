@@ -1,0 +1,12 @@
+.card-counter {
+  @apply flex items-center max-w-max justify-between gap-10;
+  &__count {
+    @apply flex gap-3 text-4xl leading-none;
+  }
+  &__image {
+    @apply w-full aspect-square;
+  }
+  &__min {
+    @apply text-xl text-main-gray;
+  }
+}

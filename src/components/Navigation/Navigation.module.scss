@@ -1,0 +1,12 @@
+.nav {
+  @apply text-xl border-b border-main-black-lighter;
+  &__list {
+    @apply flex max-w-max border-r border-main-black-lighter;
+    &-item {
+      @apply relative border-r border-main-black-lighter last:border-0 overflow-hidden;
+      &-link {
+        @apply block px-10 py-5
+      }
+    }
+  }
+}

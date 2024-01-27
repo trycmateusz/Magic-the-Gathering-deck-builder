@@ -1,0 +1,72 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --mana-green: #6EE890;
+  --mana-red: #E79864;
+  --mana-yellow: #E9C68B;
+  --mana-gray: #D2D2D2;
+  --mana-blue: #6AC1EC;
+  --main-white: #F8F8F8;
+  --main-black: #141414;
+  --main-black-lighter: #222121;
+  --main-gray: #727272;
+  --main-red: #C52929;
+  --nav-height: 4.25rem;
+}
+
+@font-face {
+  src: url('../public/MTG.TTF');
+  font-family: 'Magic the Gathering';
+}
+
+body {
+  color: var(--main-white);
+  background-color: var(--main-black);
+  font-family: 'Magic the Gathering';
+}
+
+html {
+  font-size: 93.75%;
+}
+
+.wrapper {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.main-transition {
+  transition: opacity 0.3s;
+}
+
+.main-transition:hover,
+.main-transition:focus {
+  opacity: 0.5
+}
+
+@media (min-width: 576px){
+  html {
+    font-size: 100%;
+  }
+}
+
+@media (min-width: 768px){
+  html {
+    font-size: 106.25%;
+  }
+}
+
+@media (min-width: 992px){
+  html {
+    font-size: 112.5%;
+  }
+}
+
+@media (min-width: 1200px){
+  html {
+    font-size: 118.75%;
+  }
+}
+
