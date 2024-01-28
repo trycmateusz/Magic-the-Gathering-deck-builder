@@ -1,7 +1,7 @@
 import Image from 'next/image'
-import style from './GeneralMana.module.scss'
+import style from './AverageMana.module.scss'
 
-export function GeneralMana() {
+export function AverageMana() {
   const mana = 10
   return (
     <div className={style['general-mana']}>

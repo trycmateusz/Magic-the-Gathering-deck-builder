@@ -1,15 +1,18 @@
 .aside {
-  @apply sticky top-[Calc(var(--nav-height)_+_var(--general-border-width))] flex flex-col items-center max-w-max w-1/2 h-[Calc(100svh_-_var(--nav-height))] border-r border-main-black-lighter divide-solid z-40;
+  @apply sticky top-[var(--nav-height)] flex flex-col items-center h-[Calc(100svh_-_var(--nav-height))] border-r border-main-black-lighter divide-solid z-40 overflow-hidden;
   &__info {
     @apply flex flex-col w-full items-center p-5 border-b border-main-black-lighter;
+    &-text {
+      @apply text-xl;
+    }
   }
   &__reset {
-    @apply relative text-left p-5 w-full border-main-black-lighter text-xl;
+    @apply relative text-left p-5 w-full bg-main-black border-main-black-lighter text-xl z-10;
     &-image {
       @apply absolute top-[Calc(50%_-_3px)] right-5 -translate-y-1/2 h-7 w-7;
     }
   }
   &__filters {
-    @apply flex flex-col gap-5 w-full p-5 text-base border-t border-main-black-lighter overflow-y-scroll;
+    @apply flex flex-col gap-5 w-full p-5 text-base border-t border-main-black-lighter overflow-y-auto;
   }
 }

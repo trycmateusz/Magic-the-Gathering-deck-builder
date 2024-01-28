@@ -4,7 +4,7 @@
     @apply text-xl  
   }
   &__input {
-    @apply bg-main-black-lighter p-2 text-base transition-colors;
+    @apply bg-main-black-lighter p-2.5 text-base transition-colors;
     &:hover,
     &:focus {
       @apply outline-none

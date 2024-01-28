@@ -11,9 +11,9 @@ export default function Home() {
         </title>
         <meta property="description" content="Make your own Magic the Gathering decck using cards and info provided by magicthegathering.io" />
       </Head>
-      <div>
+      <div className="flex">
         <Aside />
-        <main className="p-5">
+        <main className="p-5 w-1/2">
 
         </main>
       </div>

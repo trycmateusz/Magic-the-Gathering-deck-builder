@@ -1,4 +1,4 @@
-import type { NavigationLink } from '@/types/Navigation'
+import type { NavigationLink } from '@/src/types/Navigation'
 import Link from 'next/link'
 import style from './Navigation.module.scss'
 import { NavigationBackgroundGlow } from '@/src/components/NavigationBackgroundGlow/NavigationBackgroundGlow'

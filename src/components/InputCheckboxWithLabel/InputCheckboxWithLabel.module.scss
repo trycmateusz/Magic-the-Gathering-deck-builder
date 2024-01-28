@@ -1,16 +1,30 @@
 .box {
-  @apply flex gap-2;
+  @apply flex items-center gap-2;
   &__label {
-    @apply text-xl  
+    @apply text-xl order-1; 
+    &:hover ~ .checkbox,
+    &:focus ~ .checkbox {
+      @apply bg-neutral-600
+    }
+    &:active ~ .checkbox {
+      @apply bg-main-gray;
+    }
   }
   &__input {
-    @apply bg-main-black-lighter p-2 text-base transition-colors;
-    &:hover,
-    &:focus {
-      @apply outline-none
+    @apply hidden;
+    &:checked ~ .checkbox {
+      @apply bg-main-white;
     }
-    &:focus {
-      @apply text-mana-blue
-    }
+  }
+}
+
+.checkbox {
+  @apply w-4 h-4 bg-main-black-lighter transition-colors cursor-pointer;
+  &:hover,
+  &:focus {
+    @apply bg-neutral-600
+  }
+  &:active {
+    @apply bg-main-gray;
   }
 }

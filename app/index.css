@@ -13,8 +13,8 @@
   --main-black-lighter: #222121;
   --main-gray: #727272;
   --main-red: #C52929;
-  --nav-height: 4.25rem;
   --general-border-width: 1px;
+  --nav-height: Calc(4.25rem + var(--general-border-width));
 }
 
 @font-face {
@@ -44,7 +44,7 @@ html {
 
 .main-transition:hover,
 .main-transition:focus {
-  opacity: 0.75
+  opacity: 0.5
 }
 
 @media (min-width: 576px){

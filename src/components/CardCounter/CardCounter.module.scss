@@ -7,6 +7,12 @@
     @apply w-full aspect-square;
   }
   &__min {
-    @apply text-xl text-main-gray;
+    @apply relative text-xl text-main-gray;
+    &-text {
+      @apply transition-colors;
+      &--active {
+        @apply text-main-white;
+      }
+    }
   }
 }

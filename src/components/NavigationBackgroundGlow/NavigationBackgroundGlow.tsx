@@ -1,7 +1,7 @@
 'use client'
 
 import { BackgroundGlow } from '@/src/components/BackgroundGlow/BackgroundGlow'
-import type { NavigationLink } from '@/types/Navigation'
+import type { NavigationLink } from '@/src/types/Navigation'
 import { usePathname } from 'next/navigation'
 
 export function NavigationBackgroundGlow ({ 

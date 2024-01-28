@@ -1,5 +1,5 @@
 .background-glow {
-  @apply absolute top-1/2 left-1/2 w-3/4 h-3/4 rounded-full bg-main-white -z-10 blur-xl opacity-5 -translate-x-1/2 -translate-y-1/2;
+  @apply absolute top-1/2 left-1/2 w-3/4 h-3/4 rounded-full bg-main-white -z-10 blur-3xl opacity-20 -translate-x-1/2 -translate-y-1/2;
   &--hidden {
     @apply hidden;
   }

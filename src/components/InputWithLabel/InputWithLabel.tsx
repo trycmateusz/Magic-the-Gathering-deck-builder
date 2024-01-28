@@ -4,23 +4,30 @@ export function InputWithLabel ({
   label,
   type,
   name,
-  onChange
+  onChange,
+  value
 }: Readonly<{
   label: string
   type: string
   name: string
-  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void
+  onChange: (value: string) => void
+  value: string
 }>) {
+  const handleOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value
+    onChange(value)
+  }
   return (
     <div className={style['box']}>
       <label className={style['box__label']} htmlFor={name}>
         {label}
       </label>
       <input
-        onChange={onChange}
+        onChange={handleOnChange}
         className={`main-transition ${style['box__input']}`}
         type={type} 
         name={name}
+        value={value}
         id={name} 
       />
     </div>
