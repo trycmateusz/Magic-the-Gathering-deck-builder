@@ -1,9 +1,17 @@
 .search-bar {
   @apply relative;
+  &[data-searching="false"]{
+    .search-bar__options {
+      @apply hidden;
+    }
+  }
   &__options {
     @apply absolute top-full border-l border-r border-b bg-main-black border-main-black-lighter w-full max-h-[11rem] overflow-y-auto z-30;
     &-one {
-      @apply p-2.5 w-full text-left border-t border-main-black-lighter text-lg cursor-pointer;
+      @apply p-2.5 w-full text-left border-t border-main-black-lighter text-base cursor-pointer focus:-outline-offset-4;
+    }
+    &-error {
+      @apply block p-2.5 w-full text-left border-t border-main-black-lighter text-base;
     }
   }
 }

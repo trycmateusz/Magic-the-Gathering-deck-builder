@@ -1,21 +1,26 @@
 const baseApiUrl = 'https://api.magicthegathering.io/v1'
+const queries: string[] = []
 
-export const fetchCollection = async <T>(collection: string): Promise<T[] | undefined> => {
-  interface TResponse {
-    [key: string]: T[]
-  }
-  try {
-    const res = await fetch(`${baseApiUrl}/${collection}`)
-    if(!res.ok){
-      throw new Error(`Error while fetching ${collection}`)
+export const fetchOnCondition = async <T>(collection: string, query: string): Promise<T[] | undefined> => {
+  if(!queries.includes(query)){
+    interface TResponse {
+      [key: string]: T[]
     }
-    const data = await (res.json() as Promise<TResponse>)
-    if(data && Object.hasOwn(data, collection)){
-      return data[collection]
+    try {
+      const url = new URL(`${baseApiUrl}/${collection}?${query}`)
+      const res = await fetch(url)
+      if(!res.ok){
+        throw new Error(`Error while fetching ${collection}`)
+      }
+      const data = await (res.json() as Promise<TResponse>)
+      if(data && Object.hasOwn(data, collection)){
+        queries.push(query)
+        return data[collection]
+      }
     }
-  }
-  catch(error){
-    console.error(`Error while fetching ${collection}: ${error}`)
-    return
+    catch(error){
+      console.error(`Error while fetching ${collection}: ${error}`)
+      return
+    }
   }
 }

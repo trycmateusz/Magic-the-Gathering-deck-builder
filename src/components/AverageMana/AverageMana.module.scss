@@ -1,6 +1,6 @@
 .general-mana {
   @apply relative max-w-max;
   &__counter {
-    @apply absolute top-1/2 left-1/2 text-5xl leading-none -translate-x-1/2 -translate-y-1/2;
+    @apply absolute top-1/2 left-1/2 text-3xl leading-none -translate-x-1/2 -translate-y-1/2;
   }
 }

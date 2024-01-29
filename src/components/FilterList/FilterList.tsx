@@ -13,12 +13,14 @@ interface KeyNameAndLabel {
 export function FilterList ({
   filters,
   label,
-  checkIfCheckedOnInit,
-  onChange,
+  wasReset,
+  checkIfChecked,
+  onChange
 }: Readonly<{
   filters: string[] | Set[]
   label: Typing | 'sets'
-  checkIfCheckedOnInit: (name: string) => boolean
+  wasReset: boolean[]
+  checkIfChecked: (name: string) => boolean
   onChange: (value: string, filterLabel?: FilterLabel) => void
 }>) {
   const getKeyAndName = (filter: typeof filters[number]): KeyNameAndLabel => {
@@ -49,7 +51,8 @@ export function FilterList ({
                 name={filter.name} 
                 label={filter.name}
                 filterLabel={label}
-                checkIfCheckedOnInit={checkIfCheckedOnInit}
+                checkIfChecked={checkIfChecked}
+                wasReset={wasReset}
               />
             </li>
           ))}

@@ -1,9 +1,7 @@
 /* eslint-disable @next/next/no-sync-scripts */
 
-import store from '@/src/redux'
 import './index.css'
 import Head from 'next/head'
-import { Provider } from 'react-redux'
 import { Navigation } from '@/src/components/Navigation/Navigation'
 
 export default function RootLayout({
@@ -17,9 +15,7 @@ export default function RootLayout({
         <script src="http://localhost:3000"></script>
       </Head>
       <Navigation />
-      <Provider store={store}>
         {children}
-      </Provider>
     </div>
   )
 }

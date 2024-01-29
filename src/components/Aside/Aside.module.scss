@@ -3,16 +3,16 @@
   &__info {
     @apply flex flex-col w-full items-center p-5 border-b border-main-black-lighter;
     &-text {
-      @apply text-xl;
+      @apply text-lg;
     }
   }
   &__reset {
-    @apply relative text-left p-5 w-full bg-main-black border-main-black-lighter text-xl z-10;
+    @apply relative text-left p-5 w-full bg-main-black border-main-black-lighter text-lg z-10;
     &-image {
       @apply absolute top-[Calc(50%_-_3px)] right-5 -translate-y-1/2 h-7 w-7;
     }
   }
   &__filters {
-    @apply flex flex-col gap-5 w-full p-5 text-base border-t border-main-black-lighter overflow-y-auto;
+    @apply flex flex-col gap-5 w-full p-5 text-sm border-t border-main-black-lighter overflow-y-auto;
   }
 }

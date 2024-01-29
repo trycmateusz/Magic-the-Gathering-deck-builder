@@ -4,14 +4,20 @@ export function InputWithLabel ({
   label,
   type,
   name,
+  value,
+  onBlur,
   onChange,
-  value
+  onFocus,
+  onMouseDown
 }: Readonly<{
   label: string
   type: string
   name: string
-  onChange: (value: string) => void
   value: string
+  onChange: (value: string) => void
+  onFocus?: () => void
+  onBlur?: () => void
+  onMouseDown?: (e: Event) => void
 }>) {
   const handleOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value
@@ -23,7 +29,11 @@ export function InputWithLabel ({
         {label}
       </label>
       <input
+        autoComplete="off"
+        onBlur={onBlur}
+        onFocus={onFocus}
         onChange={handleOnChange}
+        onMouseDown={() => onMouseDown}
         className={`main-transition ${style['box__input']}`}
         type={type} 
         name={name}

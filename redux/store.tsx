@@ -1,13 +1,13 @@
 import { configureStore } from '@reduxjs/toolkit'
 import typingSlice from './typingSlice'
-import filterSlice from './filterSlice'
 import setSlice from './setSlice'
+import cardSlice from './cardSlice'
 
 const store = configureStore({
   reducer: {
+    card: cardSlice.reducer,
     typing: typingSlice.reducer,
-    filter: filterSlice.reducer,
-    set: setSlice.reducer
+    set: setSlice.reducer,
   }
 })
 

@@ -18,14 +18,14 @@
 }
 
 @font-face {
-  src: url('../public/MTG.TTF');
-  font-family: 'Magic the Gathering';
+  src: url('../public/VioletSans.woff');
+  font-family: 'Violet Sans';
 }
 
 body {
   color: var(--main-white);
   background-color: var(--main-black);
-  font-family: 'Magic the Gathering';
+  font-family: 'Violet Sans';
 }
 
 html {

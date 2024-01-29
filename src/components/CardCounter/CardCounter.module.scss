@@ -1,13 +1,13 @@
 .card-counter {
   @apply flex items-center max-w-max justify-between gap-10;
   &__count {
-    @apply flex gap-3 text-4xl leading-none;
+    @apply flex mt-2.5 gap-3 text-xl leading-none;
   }
   &__image {
     @apply w-full aspect-square;
   }
   &__min {
-    @apply relative text-xl text-main-gray;
+    @apply relative text-lg text-main-gray;
     &-text {
       @apply transition-colors;
       &--active {

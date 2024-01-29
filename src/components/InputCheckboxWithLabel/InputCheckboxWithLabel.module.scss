@@ -1,7 +1,7 @@
 .box {
-  @apply flex items-center gap-2;
+  @apply flex gap-2;
   &__label {
-    @apply text-xl order-1; 
+    @apply text-base order-1; 
     &:hover ~ .checkbox,
     &:focus ~ .checkbox {
       @apply bg-neutral-600
@@ -9,17 +9,30 @@
     &:active ~ .checkbox {
       @apply bg-main-gray;
     }
+
   }
   &__input {
     @apply hidden;
     &:checked ~ .checkbox {
       @apply bg-main-white;
     }
+    &:checked ~ .checkbox:hover {
+      @apply bg-neutral-300
+    }
+    &:checked ~ .box__label {
+      &:hover ~ .checkbox,
+      &:focus ~ .checkbox {
+        @apply bg-neutral-300
+      }
+      &:active ~ .checkbox {
+        @apply bg-neutral-600
+      }
+    }
   }
 }
 
 .checkbox {
-  @apply w-4 h-4 bg-main-black-lighter transition-colors cursor-pointer;
+  @apply mt-1 w-4 h-4 bg-main-black-lighter transition-colors cursor-pointer;
   &:hover,
   &:focus {
     @apply bg-neutral-600

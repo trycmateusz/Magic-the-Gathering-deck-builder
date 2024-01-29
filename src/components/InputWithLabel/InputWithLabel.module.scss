@@ -1,10 +1,10 @@
 .box {
   @apply flex flex-col;
   &__label {
-    @apply text-xl  
+    @apply inline text-lg w-max;  
   }
   &__input {
-    @apply bg-main-black-lighter p-2.5 text-base transition-colors;
+    @apply bg-main-black-lighter p-2.5 text-sm transition-colors;
     &:hover,
     &:focus {
       @apply outline-none

@@ -7,24 +7,7 @@ interface State {
 }
 
 const initialState: State = {
-  sets: [
-    { 
-      code: '123', 
-      name: 'test' 
-    },
-    { 
-      code: '2', 
-      name: 'ta' 
-    },
-    { 
-      code: '3', 
-      name: 'tb' 
-    },
-    { 
-      code: '5', 
-      name: 'tc' 
-    },
-  ]
+  sets: []
 }
 
 const setSlice = createSlice({
