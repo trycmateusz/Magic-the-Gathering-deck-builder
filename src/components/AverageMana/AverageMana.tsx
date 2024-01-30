@@ -1,8 +1,12 @@
 import Image from 'next/image'
 import style from './AverageMana.module.scss'
+import { useAppSelector } from '@/src/hooks/redux'
 
-export function AverageMana() {
-  const mana = 10
+export function AverageMana({ 
+  mana 
+}: Readonly<{
+  mana: number
+}>) {
   return (
     <div className={style['general-mana']}>
       <Image

@@ -1,11 +1,16 @@
+import type { MinCardLength, MaxCardLength } from '@/src/types/Card'
 import Image from 'next/image'
 import style from './CardCounter.module.scss'
 import { BackgroundGlow } from '@/src/components/BackgroundGlow/BackgroundGlow'
+import { useAppSelector } from '@/src/hooks/redux'
 
-export function CardCounter () {
-  const cardsLength = 22
-  const maxCards = 30
-  const minCards = 20
+export function CardCounter ({ 
+  cardsLength 
+}: Readonly<{
+  cardsLength: number
+}>) {
+  const maxCards = useAppSelector(state => state.card.maxCards)
+  const minCards = useAppSelector(state => state.card.minCards)
   const hasMinimumAmountOfCards = () => {
     return cardsLength >= minCards
   }
@@ -23,12 +28,7 @@ export function CardCounter () {
         <span>
           {cardsLength}
         </span>
-        <Image 
-          src="/text-breaker.svg" 
-          alt="" 
-          width="4" 
-          height="10" 
-        />
+        /
         <span>
           {maxCards}
         </span>

@@ -3,7 +3,7 @@
   &__info {
     @apply flex flex-col w-full items-center p-5 border-b border-main-black-lighter;
     &-text {
-      @apply text-lg;
+      @apply text-lg text-center;
     }
   }
   &__reset {

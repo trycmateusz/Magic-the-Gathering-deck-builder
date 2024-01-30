@@ -4,11 +4,15 @@ import type { Card } from '@/src/types/Card'
 import Image from 'next/image'
 import { ManaSymbolEnum, ManaSymbol } from '@/src/types/Mana'
 import style from './CardList.module.scss'
+import { useAppDispatch } from '@/src/hooks/redux'
+import { addCardToDeck } from '@/redux/cardSlice'
 
 export function CardList ({
-  cards
+  cards,
+  forAdding
 }: Readonly<{
   cards: Card[]
+  forAdding: boolean
 }>) {
   function ManaCost ({ 
     manaCost 
@@ -43,7 +47,31 @@ export function CardList ({
         </div>
       )
     }
+    else {
+      return (
+        null
+      )
+    }
   }
+  function CardListItemAdd ({ 
+    card 
+  }: Readonly<{
+    card: Card
+  }>) {
+    if(forAdding){
+      return (
+        <button onClick={() => dispatch(addCardToDeck(card))} className={cardListItemFooterAddClassname}>
+          +
+        </button>
+      )
+    }
+    else {
+      return (
+        null
+      )
+    }
+  }
+  const dispatch = useAppDispatch()
   const convertName = (name: string) => {
     return name.split(' // ')[0]
   }
@@ -71,9 +99,7 @@ export function CardList ({
               <span>
                 {card.cmc} CMC
               </span>
-              <button className={cardListItemFooterAddClassname}>
-                +
-              </button>
+              <CardListItemAdd card={card} />
             </div>
           </li>
         ))}

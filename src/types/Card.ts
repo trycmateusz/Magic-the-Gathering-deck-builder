@@ -17,3 +17,6 @@ export interface Card extends CardTypings {
   rarity: string
   type: string
 }
+
+export type MaxCardLength = 30
+export type MinCardLength = 20

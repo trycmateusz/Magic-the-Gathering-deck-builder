@@ -1,51 +1,73 @@
 import type { FilterLabel } from '@/src/types/Filter'
 import type { Set } from '@/src/types/Set'
-import type { Card } from '@/src/types/Card'
+import type { Dispatch } from 'react'
 import style from './Aside.module.scss'
 import Image from 'next/image'
-import { useState, useEffect } from 'react'
-import { useAppSelector, useAppDispatch } from '@/src/hooks/redux'
-import { fetchOnCondition } from '@/services/fetch'
-import { createFetchQueryString } from '@/helpers/query'
-import { toggleStringFilter, toggleSetFilter } from '@/helpers/filter'
+import { useState, useEffect, SetStateAction } from 'react'
+import { useAppSelector } from '@/src/hooks/redux'
 import { AverageMana } from '@/src/components/AverageMana/AverageMana'
 import { CardCounter } from '@/src/components/CardCounter/CardCounter'
 import { InputWithLabel } from '@/src/components/InputWithLabel/InputWithLabel'
 import { FilterList } from '@/src/components/FilterList/FilterList'
 import { SearchBar } from '@/src/components/SearchBar/SearchBar'
-import { addSet } from '@/redux/setSlice'
-import { addCard } from '@/redux/cardSlice'
 
-export function Aside () {
-  const debounceTimeInMiliseconds = 700
-  const dispatch = useAppDispatch()
+export function Aside ({
+  debounceTimeInMiliseconds,
+  filterSets,
+  filterTypes,
+  filterSubtypes,
+  filterSupertypes,
+  setFilterSets,
+  setFilterTypes,
+  setFilterSubtypes,
+  setFilterSupertypes,
+  setDebouncedCardName,
+  setDebouncedSetName,
+  resetFilterSets,
+  resetFilterTypes,
+  resetFilterSubtypes,
+  resetFilterSupertypes
+ }: Readonly<{
+  debounceTimeInMiliseconds: number
+  filterSets: Set[]
+  filterTypes: string[]
+  filterSubtypes: string[]
+  filterSupertypes: string[]
+  setFilterSets: (set: Set) => void
+  setFilterTypes: (value: string) => void
+  setFilterSubtypes: (value: string) => void
+  setFilterSupertypes: (value: string) => void
+  setDebouncedCardName: (value: string) => void
+  setDebouncedSetName: (value: string) => void
+  resetFilterSets: () => void
+  resetFilterTypes: () => void
+  resetFilterSubtypes: () => void
+  resetFilterSupertypes: () => void
+ }>) {
   const types = useAppSelector(state => state.typing.types)
   const sets = useAppSelector(state => state.set.sets)
   const supertypes = useAppSelector(state => state.typing.supertypes)
   const subtypes = useAppSelector(state => state.typing.subtypes)
+  const deck = useAppSelector(state => state.card.deck)
+  const [deckLength, setDeckLength] = useState(deck.length)
+  const [averageManaCost, setAverageManaCost] = useState(0)
   const [cardName, setCardName] = useState('')
   const [setName, setSetName] = useState('')
-  const [debouncedCardName, setDebouncedCardName] = useState('')
-  const [debouncedSetName, setDebouncedSetName] = useState('')
-  const [filterSets, setFilterSets] = useState<Set[]>([])
-  const [filterTypes, setFilterTypes] = useState<string[]>([])
-  const [filterSubtypes, setFilterSubtypes] = useState<string[]>([])
-  const [filterSupertypes, setFilterSupertypes] = useState<string[]>([])
   const [wasReset, setWasReset] = useState<boolean[]>([])
   const handleCheckedChange = (value: string, filterLabel?: FilterLabel) => {
     if(filterLabel === 'types') {
-      setFilterTypes(prev => toggleStringFilter(prev, value))
+      setFilterTypes(value)
     }
     else if (filterLabel === 'subtypes') {
-      setFilterSubtypes(prev => toggleStringFilter(prev, value))
+      setFilterSubtypes(value)
     }
     else if (filterLabel === 'supertypes') {
-      setFilterSupertypes(prev => toggleStringFilter(prev, value))
+      setFilterSupertypes(value)
     }
     else {
       const set = sets.find(set => set.name === value)
       if(set){
-        setFilterSets(prev => toggleSetFilter(prev, set))
+        setFilterSets(set)
       }
     }
   }
@@ -59,21 +81,21 @@ export function Aside () {
     if(typeof value === 'string'){
       const set = sets.find(set => set.name === value)
       if(set){
-        setFilterSets(prev => toggleSetFilter(prev, set))
+        setFilterSets(set)
       }
     }
     else {
-      setFilterSets(prev => toggleSetFilter(prev, value))
+      setFilterSets(value)
     }
     setSetName('')
   }
   const resetFilters = () => {
-    setCardName(() => '')
-    setSetName(() => '')
-    setFilterSets(() => [])
-    setFilterTypes(() => [])
-    setFilterSubtypes(() => [])
-    setFilterSupertypes(() => [])
+    setCardName('')
+    setSetName('')
+    resetFilterSets()
+    resetFilterTypes()
+    resetFilterSubtypes()
+    resetFilterSupertypes()
     setWasReset(prev => [ ...prev, true ])
   }
   useEffect(() => {
@@ -93,68 +115,19 @@ export function Aside () {
     }
   }, [cardName, debounceTimeInMiliseconds])
   useEffect(() => {
-    if(debouncedSetName !== ''){
-      const fetchSets = async () => {
-        const query = createFetchQueryString<Set>({
-          name: debouncedSetName
-        })
-        const sets = await fetchOnCondition<Set>('sets', query)
-        if(sets){
-          sets.forEach(set => {
-            dispatch(addSet(set))
-          })
-        }
-      }
-      fetchSets()
+    if(deck.length > 0){
+      setDeckLength(deck.length)
+      setAverageManaCost(+(deck.reduce((prev, current) => prev + current.cmc, 0) / deck.length).toFixed(1))
     }
-  }, [debouncedSetName, dispatch])
-  useEffect(() => {
-    const areAnyFiltersOnTimeoutId = setTimeout(() => {
-      if (
-        filterSets.length > 0 ||
-        filterTypes.length > 0 ||
-        filterSubtypes.length > 0 ||
-        filterSupertypes.length > 0 ||
-        debouncedCardName !== ''
-      ) {
-        const fetchCards = async () => {
-          const query = createFetchQueryString<Card>({
-            name: debouncedCardName,
-            setName: {
-              ors: filterSets.map(set => set.name)
-            },
-            types: {
-              ors: [...filterTypes]
-            },
-            subtypes: {
-              ors: [...filterSubtypes]
-            },
-            supertypes: {
-              ors: [...filterSupertypes]
-            }
-          })
-          const cards = await fetchOnCondition<Card>('cards', query)
-          if(cards){
-            cards.forEach(card => {
-              dispatch(addCard(card))
-            })
-          }
-        }
-        fetchCards()
-      }
-    }, debounceTimeInMiliseconds)
-    return () => {
-      clearTimeout(areAnyFiltersOnTimeoutId)
-    }
-  }, [filterSets, filterTypes, filterSubtypes, filterSupertypes, debouncedCardName, dispatch])
+  }, [deck])
   return (
     <aside className={style['aside']}>
       <div className={style['aside__info']}>
         <span className={style['aside__info-text']}>
           Deck&apos;s average mana cost
         </span>
-        <AverageMana />
-        <CardCounter />
+        <AverageMana mana={averageManaCost} />
+        <CardCounter cardsLength={deckLength} />
       </div>
       <button onClick={resetFilters} className={`main-transition ${style['aside__reset']}`}>
         <span>Reset filters</span>

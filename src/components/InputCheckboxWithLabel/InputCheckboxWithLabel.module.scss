@@ -32,7 +32,7 @@
 }
 
 .checkbox {
-  @apply mt-1 w-4 h-4 bg-main-black-lighter transition-colors cursor-pointer;
+  @apply mt-1 w-4 h-4 bg-main-black-lighter transition-colors cursor-pointer aspect-square;
   &:hover,
   &:focus {
     @apply bg-neutral-600
