@@ -60,4 +60,9 @@ export function FilterList ({
       </div>
     )
   }
+  else {
+    return (
+      null
+    )
+  }
 }

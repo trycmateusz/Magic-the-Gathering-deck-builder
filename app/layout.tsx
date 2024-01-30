@@ -1,4 +1,5 @@
 /* eslint-disable @next/next/no-sync-scripts */
+'use client'
 
 import './index.css'
 import Head from 'next/head'

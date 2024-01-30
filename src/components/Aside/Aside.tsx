@@ -14,7 +14,7 @@ import { InputWithLabel } from '@/src/components/InputWithLabel/InputWithLabel'
 import { FilterList } from '@/src/components/FilterList/FilterList'
 import { SearchBar } from '@/src/components/SearchBar/SearchBar'
 import { addSet } from '@/redux/setSlice'
-import { addCard } from '@/redux/cardSlice'
+import { addCard, setFilteredCards } from '@/redux/cardSlice'
 
 export function Aside () {
   const debounceTimeInMiliseconds = 700
@@ -23,8 +23,11 @@ export function Aside () {
   const sets = useAppSelector(state => state.set.sets)
   const supertypes = useAppSelector(state => state.typing.supertypes)
   const subtypes = useAppSelector(state => state.typing.subtypes)
+  const deck = useAppSelector(state => state.card.deck)
   const [cardName, setCardName] = useState('')
   const [setName, setSetName] = useState('')
+  const [deckLength, setDeckLength] = useState(deck ? deck.length : 0)
+  const [averageManaCost, setAverageManaCost] = useState(0)
   const [debouncedCardName, setDebouncedCardName] = useState('')
   const [debouncedSetName, setDebouncedSetName] = useState('')
   const [filterSets, setFilterSets] = useState<Set[]>([])
@@ -138,6 +141,7 @@ export function Aside () {
             cards.forEach(card => {
               dispatch(addCard(card))
             })
+            dispatch(setFilteredCards(cards))
           }
         }
         fetchCards()
@@ -147,14 +151,20 @@ export function Aside () {
       clearTimeout(areAnyFiltersOnTimeoutId)
     }
   }, [filterSets, filterTypes, filterSubtypes, filterSupertypes, debouncedCardName, dispatch])
+  useEffect(() => {
+    if(deck && deck.length > 0){
+      setDeckLength(deck.length)
+      setAverageManaCost(+(deck.reduce((prev, current) => prev + current.cmc, 0) / deck.length).toFixed(1))
+    }
+  }, [deck])
   return (
     <aside className={style['aside']}>
       <div className={style['aside__info']}>
         <span className={style['aside__info-text']}>
           Deck&apos;s average mana cost
         </span>
-        <AverageMana />
-        <CardCounter />
+        <AverageMana mana={averageManaCost} />
+        <CardCounter cardsLength={deckLength} />
       </div>
       <button onClick={resetFilters} className={`main-transition ${style['aside__reset']}`}>
         <span>Reset filters</span>
