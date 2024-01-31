@@ -13,21 +13,28 @@ import { resetFilteredDeck } from '@/redux/cardSlice'
 export default function Deck() {
   function RenderCardList () {
     if(deck){
-      if(deckFiltered && deckFiltered.length > 0){
-        return (
-          <CardList forAdding={false} cards={deckFiltered} />
-        )
+      if(deckFiltered){
+        if(deckFiltered.length > 0){
+          return (
+            <CardList forAdding={false} cards={deckFiltered} />
+          )
+        }
+        else {
+          return (
+            <div className="flex flex-col">
+              <span>
+                No cards matching the filters.
+              </span>
+              <span>
+                Reset or change them to see your cards.
+              </span>
+            </div>
+          )
+        }
       }
       else if(deck.length > 0){
         return (
-          <div className="flex flex-col">
-            <span>
-              No cards matching the filters.
-            </span>
-            <span>
-              Reset or change them to see your cards.
-            </span>
-          </div>
+          <CardList forAdding={false} cards={deck} />
         )
       }
       else {

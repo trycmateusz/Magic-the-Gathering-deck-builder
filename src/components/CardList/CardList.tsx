@@ -99,8 +99,8 @@ export function CardList ({
               {card.text}
             </p>
             <div className={style['card-list-item__footer']}>
-              <span>
-                {card.cmc} CMC
+              <span className="text-mana-gray">
+                {card.types?.includes('Land') ? 'Land' : `${card.cmc} CMC`}
               </span>
               <CardListItemAdd disabled={deck ? (deck.length >= 30 || deck.includes(card)) : false} card={card} />
             </div>

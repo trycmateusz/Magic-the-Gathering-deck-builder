@@ -155,7 +155,6 @@ export function Aside ({
                 ors: [...filterSupertypes]
               }
             })
-            console.log(query)
             const cards = await fetchOnCondition<Card>('cards', query)
             if(cards){
               cards.forEach(card => {
@@ -186,8 +185,10 @@ export function Aside ({
   }, [filterSets, filterTypes, filterSubtypes, filterSupertypes, debouncedCardName, dispatch, forDeck])
   useEffect(() => {
     if(deck && deck.length > 0){
+      const notLand = deck.filter(card => !card.types || !card.types.includes('Land'))
+      console.log(notLand);
       setDeckLength(deck.length)
-      setAverageManaCost(+(deck.reduce((prev, current) => prev + current.cmc, 0) / deck.length).toFixed(1))
+      setAverageManaCost(+(notLand.reduce((prev, current) => prev + current.cmc, 0) / deck.length).toFixed(1))
       setFilteredDeck(deck)
     }
   }, [deck])
