@@ -186,7 +186,6 @@ export function Aside ({
   useEffect(() => {
     if(deck && deck.length > 0){
       const notLand = deck.filter(card => !card.types || !card.types.includes('Land'))
-      console.log(notLand);
       setDeckLength(deck.length)
       setAverageManaCost(+(notLand.reduce((prev, current) => prev + current.cmc, 0) / deck.length).toFixed(1))
       setFilteredDeck(deck)
