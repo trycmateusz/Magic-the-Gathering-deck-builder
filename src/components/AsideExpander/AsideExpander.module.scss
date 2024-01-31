@@ -1,0 +1,12 @@
+.aside__expander {
+  @apply sticky top-[var(--nav-height)] flex w-full justify-end border-b border-main-black-lighter text-lg;
+  &-btn {
+    @apply p-5;
+  }
+}
+
+@media (min-width: 576px){
+  .aside__expander {
+    @apply hidden;
+  }
+}

@@ -1,6 +1,6 @@
 export const checkIfTwoStringArraysHaveAnyMatch = (first: string[], second: string[]) => {
   let hasAnyMatch = false
-  for(const value in first){
+  for(const value of first){
     if(hasAnyMatch) continue
     if(second.includes(value)){
       hasAnyMatch = true

@@ -1,5 +1,5 @@
 .aside {
-  @apply sticky top-[var(--nav-height)] flex flex-col items-center h-[Calc(100svh_-_var(--nav-height))] border-r border-main-black-lighter divide-solid z-40 overflow-hidden;
+  @apply sticky top-[var(--nav-height-times-two)] flex flex-col items-center h-[Calc(100svh_-_var(--nav-height))] border-r border-main-black-lighter divide-solid z-40 overflow-hidden;
   &__info {
     @apply flex flex-col w-full items-center p-5 border-b border-main-black-lighter;
     &-text {
@@ -14,5 +14,20 @@
   }
   &__filters {
     @apply flex flex-col gap-5 w-full p-5 text-sm border-t border-main-black-lighter overflow-y-auto;
+  }
+}
+
+@media (min-width: 576px){
+  .aside {
+    @apply top-[var(--nav-height)];
+    &__expander {
+      @apply hidden;
+    }
+  }
+}
+
+@media (max-width: 575px){
+  .aside[data-filters-expanded="false"]{
+    @apply hidden;
   }
 }

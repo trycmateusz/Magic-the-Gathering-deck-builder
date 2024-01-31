@@ -1,11 +1,14 @@
 .card-list {
   @apply grid grid-cols-1 gap-5 lg:grid-cols-2;
   &-item {
-    @apply flex flex-col gap-5 p-5 bg-main-black-lighter text-base;
+    @apply flex flex-col gap-5 p-5 bg-main-black-lighter text-base transition-opacity;
+    &[data-in-deck-when-adding="true"]{
+      @apply opacity-30 pointer-events-none;
+    }
     &__header {
-      @apply flex flex-col text-lg md:gap-5 md:flex-row md:justify-between;
+      @apply flex flex-col gap-2.5 items-start text-lg leading-none md:gap-5 md:flex-row md:justify-between md:items-center;
       &-mana {
-        @apply flex flex-wrap justify-end h-min leading-none;
+        @apply flex flex-wrap justify-end h-min;
         img {
           @apply h-min;
         }
@@ -24,6 +27,9 @@
       @apply flex h-10 mt-auto items-center justify-between;
       &-add {
         @apply text-2xl h-full bg-main-black aspect-square text-mana-blue;
+        &:disabled {
+          @apply cursor-not-allowed grayscale;
+        }
       }
     }
   }

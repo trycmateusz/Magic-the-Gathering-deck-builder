@@ -3,25 +3,38 @@
 import Layout from '@/app/layout'
 import Link from 'next/link'
 import { Aside } from '@/src/components/Aside/Aside'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
+import { useRouter } from 'next/navigation'
 import { useAppSelector, useAppDispatch } from '@/src/hooks/redux'
 import { CardList } from '@/src/components/CardList/CardList'
-import { resetFilteredCards } from '@/redux/cardSlice'
-import { redirect } from 'next/navigation'
+import { AsideExpander } from '@/src/components/AsideExpander/AsideExpander'
+import { resetFilteredDeck } from '@/redux/cardSlice'
 
 export default function Deck() {
   function RenderCardList () {
     if(deck){
-      if(deck.length > 0){
+      if(deckFiltered && deckFiltered.length > 0){
         return (
-          <CardList forAdding={true} cards={deck} />
+          <CardList forAdding={false} cards={deckFiltered} />
+        )
+      }
+      else if(deck.length > 0){
+        return (
+          <div className="flex flex-col">
+            <span>
+              No cards matching the filters.
+            </span>
+            <span>
+              Reset or change them to see your cards.
+            </span>
+          </div>
         )
       }
       else {
         return (
-          <div>
+          <div className="flex flex-col">
             <span>
-              It seems you haven't added any cards.
+              It seems you haven&apos;t added any cards to your deck.
             </span>
             <span>
               Go on and <Link href="/">add some!</Link>
@@ -37,19 +50,34 @@ export default function Deck() {
     }
   }
   const dispatch = useAppDispatch()
+  const router = useRouter()
+  const deckFiltered = useAppSelector(state => state.card.deckFiltered)
   const deck = useAppSelector(state => state.card.deck)
+  const [asideFiltersExpandedOnMobile, setAsideFiltersExpandedOnMobile] = useState(false)
   useEffect(() => {
-    dispatch(resetFilteredCards())
-  }, [])
-  useEffect(() => { //sprawdzic server side reduxa bo sie da spradzic initial state
     if(!deck){
-      redirect('/')
+      router.push('/')
     }
-  }, [])
+  })
+  useEffect(() => {
+    dispatch(resetFilteredDeck())
+  }, [dispatch])
+  useEffect(() => {
+    if(asideFiltersExpandedOnMobile){
+      document.body.classList.add('body-fixed')
+    }
+    else {
+      document.body.classList.remove('body-fixed')
+    }
+  }, [asideFiltersExpandedOnMobile])
   return (
     <Layout>
-      <div className="grid grid-cols-2 md:grid-cols-[1fr_2fr]">
-        <Aside />
+      <div className="app">
+        <AsideExpander 
+          expanded={asideFiltersExpandedOnMobile} 
+          setExpanded={(value: boolean) => setAsideFiltersExpandedOnMobile(value)} 
+        />
+        <Aside forDeck={true} filtersExpanded={asideFiltersExpandedOnMobile}/>
         <main className="p-5">
         <h1 className="text-3xl mb-5">
           My deck

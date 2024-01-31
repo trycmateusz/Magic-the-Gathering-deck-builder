@@ -1,6 +1,7 @@
 import type { FilterLabel } from '@/src/types/Filter'
 import type { Set } from '@/src/types/Set'
 import type { Card } from '@/src/types/Card'
+import type { Filters } from '@/src/types/Filter'
 import style from './Aside.module.scss'
 import Image from 'next/image'
 import { useState, useEffect } from 'react'
@@ -14,9 +15,16 @@ import { InputWithLabel } from '@/src/components/InputWithLabel/InputWithLabel'
 import { FilterList } from '@/src/components/FilterList/FilterList'
 import { SearchBar } from '@/src/components/SearchBar/SearchBar'
 import { addSet } from '@/redux/setSlice'
-import { addCard, setFilteredCards } from '@/redux/cardSlice'
+import { addCard, resetFilteredDeck, filterDeck, setFilteredDeck, filterCards, resetFilteredCards } from '@/redux/cardSlice'
+import { setSetsLoading, setCardsLoading } from '@/redux/loadingSlice'
 
-export function Aside () {
+export function Aside ({ 
+  filtersExpanded,
+  forDeck
+}: Readonly<{
+  filtersExpanded: boolean
+  forDeck: boolean
+}>) {
   const debounceTimeInMiliseconds = 700
   const dispatch = useAppDispatch()
   const types = useAppSelector(state => state.typing.types)
@@ -98,6 +106,7 @@ export function Aside () {
   useEffect(() => {
     if(debouncedSetName !== ''){
       const fetchSets = async () => {
+        dispatch(setSetsLoading(true))
         const query = createFetchQueryString<Set>({
           name: debouncedSetName
         })
@@ -107,12 +116,20 @@ export function Aside () {
             dispatch(addSet(set))
           })
         }
+        dispatch(setSetsLoading(false))
       }
       fetchSets()
     }
   }, [debouncedSetName, dispatch])
   useEffect(() => {
     const areAnyFiltersOnTimeoutId = setTimeout(() => {
+      const filters: Filters = {
+        sets: filterSets,
+        cardName: debouncedCardName,
+        types: filterTypes,
+        subtypes: filterSubtypes,
+        supertypes: filterSupertypes
+      }
       if (
         filterSets.length > 0 ||
         filterTypes.length > 0 ||
@@ -120,45 +137,62 @@ export function Aside () {
         filterSupertypes.length > 0 ||
         debouncedCardName !== ''
       ) {
-        const fetchCards = async () => {
-          const query = createFetchQueryString<Card>({
-            name: debouncedCardName,
-            setName: {
-              ors: filterSets.map(set => set.name)
-            },
-            types: {
-              ors: [...filterTypes]
-            },
-            subtypes: {
-              ors: [...filterSubtypes]
-            },
-            supertypes: {
-              ors: [...filterSupertypes]
-            }
-          })
-          const cards = await fetchOnCondition<Card>('cards', query)
-          if(cards){
-            cards.forEach(card => {
-              dispatch(addCard(card))
+        if(!forDeck){
+          const fetchCards = async () => {
+            dispatch(setCardsLoading(true))
+            const query = createFetchQueryString<Card>({
+              name: debouncedCardName,
+              setName: {
+                ors: filterSets.map(set => set.name)
+              },
+              types: {
+                ors: [...filterTypes]
+              },
+              subtypes: {
+                ors: [...filterSubtypes]
+              },
+              supertypes: {
+                ors: [...filterSupertypes]
+              }
             })
-            dispatch(setFilteredCards(cards))
+            console.log(query)
+            const cards = await fetchOnCondition<Card>('cards', query)
+            if(cards){
+              cards.forEach(card => {
+                dispatch(addCard(card))
+              })
+              dispatch(filterCards(filters))
+            }
+            dispatch(setCardsLoading(false))
           }
+          fetchCards()
         }
-        fetchCards()
+        else {
+          dispatch(filterDeck(filters))
+        }
+      }
+      else {
+        if(forDeck){
+          dispatch(resetFilteredDeck())
+        }
+        else {
+          dispatch(resetFilteredCards())
+        }
       }
     }, debounceTimeInMiliseconds)
     return () => {
       clearTimeout(areAnyFiltersOnTimeoutId)
     }
-  }, [filterSets, filterTypes, filterSubtypes, filterSupertypes, debouncedCardName, dispatch])
+  }, [filterSets, filterTypes, filterSubtypes, filterSupertypes, debouncedCardName, dispatch, forDeck])
   useEffect(() => {
     if(deck && deck.length > 0){
       setDeckLength(deck.length)
       setAverageManaCost(+(deck.reduce((prev, current) => prev + current.cmc, 0) / deck.length).toFixed(1))
+      setFilteredDeck(deck)
     }
   }, [deck])
   return (
-    <aside className={style['aside']}>
+    <aside data-filters-expanded={filtersExpanded} className={style['aside']}>
       <div className={style['aside__info']}>
         <span className={style['aside__info-text']}>
           Deck&apos;s average mana cost

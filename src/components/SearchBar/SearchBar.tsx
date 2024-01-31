@@ -1,6 +1,8 @@
 import style from './SearchBar.module.scss'
 import { useState } from 'react'
+import { useAppSelector } from '@/src/hooks/redux'
 import { InputWithLabel } from '@/src/components/InputWithLabel/InputWithLabel'
+import { LoadingSpinner } from '../LoadingSpinner/LoadingSpinner'
 import type { Set } from '@/src/types/Set'
 
 interface KeyAndText {
@@ -21,6 +23,7 @@ export function SearchBar({
   onOptionChosen: (option: NonNullable<typeof options>[number]) => void
   value: string
 }>) {
+  const setsLoading = useAppSelector(state => state.loading.setsLoading)
   const [isFocusedOnSearch, setIsFocusedOnSearch] = useState(false)
   const searchBarOptionClassname = (() => {
     return `main-transition ${style['search-bar__options-one']}`
@@ -43,32 +46,58 @@ export function SearchBar({
     onOptionChosen(option)
     setIsFocusedOnSearch(false)
   }
+  const loadingMessageClassName = (() => {
+    return `${style['search-bar__options-message']} text-mana-gray`
+  })()
   function OptionList({
     hasOptions,
   }: Readonly<{
     hasOptions: boolean
   }>) {
-    if(options && hasOptions){
-      return (
-        <ul className={style['search-bar__options']}>
-        {options.map(option => (
-          <li key={getKeyAndText(option).key}>
-            <button onMouseDown={() => handleOptionChosen(option)} className={searchBarOptionClassname}>
-              {getKeyAndText(option).text}
-            </button>
-          </li>
-        ))}
-      </ul>
-      )
-    }
-    else if(!!options && options.length === 0){
+    if(setsLoading){
       return (
         <div className={style['search-bar__options']}>
-          <span className={style['search-bar__options-error']}>
-            No results found.
+          <span className={loadingMessageClassName}>
+            <span>
+              Loading
+            </span>
+            <LoadingSpinner 
+              isLoading={true}
+              size="0.5rem"
+              styling={{ height: '1rem', width: '1rem', display: 'block' }} 
+            />
           </span>
         </div>
       )
+    }
+    else {
+      if(options && hasOptions){
+        return (
+          <ul className={style['search-bar__options']}>
+          {options.map(option => (
+            <li key={getKeyAndText(option).key}>
+              <button onMouseDown={() => handleOptionChosen(option)} className={searchBarOptionClassname}>
+                {getKeyAndText(option).text}
+              </button>
+            </li>
+          ))}
+        </ul>
+        )
+      }
+      else if(!!options && options.length === 0){
+        return (
+          <div className={style['search-bar__options']}>
+            <span className={style['search-bar__options-message']}>
+              No results found.
+            </span>
+          </div>
+        )
+      }
+      else {
+        return (
+          null
+        )
+      }
     }
   }
   return (

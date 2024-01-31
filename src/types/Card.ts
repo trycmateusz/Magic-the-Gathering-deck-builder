@@ -6,7 +6,7 @@ export interface CardTypings {
   types: string[]
 }
 
-export interface Card extends CardTypings {
+export interface Card extends Partial<CardTypings> {
   cmc: number
   id: string
   manaCost?: string
@@ -17,3 +17,7 @@ export interface Card extends CardTypings {
   rarity: string
   type: string
 }
+
+export type MaxCardLength = 30
+export type MinCardLength = 20
+export type CardPageSize = 40

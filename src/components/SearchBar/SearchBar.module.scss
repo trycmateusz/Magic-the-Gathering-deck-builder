@@ -10,8 +10,8 @@
     &-one {
       @apply p-2.5 w-full text-left border-t border-main-black-lighter text-base cursor-pointer focus:-outline-offset-4;
     }
-    &-error {
-      @apply block p-2.5 w-full text-left border-t border-main-black-lighter text-base;
+    &-message {
+      @apply flex items-center gap-2 p-2.5 w-full text-left border-t border-main-black-lighter text-base overflow-hidden;
     }
   }
 }

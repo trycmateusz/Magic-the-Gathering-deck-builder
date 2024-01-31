@@ -4,7 +4,7 @@ import type { Card } from '@/src/types/Card'
 import Image from 'next/image'
 import { ManaSymbolEnum, ManaSymbol } from '@/src/types/Mana'
 import style from './CardList.module.scss'
-import { useAppDispatch } from '@/src/hooks/redux'
+import { useAppDispatch, useAppSelector } from '@/src/hooks/redux'
 import { addCardToDeck } from '@/redux/cardSlice'
 
 export function CardList ({
@@ -54,13 +54,15 @@ export function CardList ({
     }
   }
   function CardListItemAdd ({ 
-    card 
+    card,
+    disabled
   }: Readonly<{
     card: Card
+    disabled: boolean
   }>) {
     if(forAdding){
       return (
-        <button onClick={() => dispatch(addCardToDeck(card))} className={cardListItemFooterAddClassname}>
+        <button onClick={() => dispatch(addCardToDeck(card))} disabled={disabled} className={cardListItemFooterAddClassname}>
           +
         </button>
       )
@@ -72,6 +74,7 @@ export function CardList ({
     }
   }
   const dispatch = useAppDispatch()
+  const deck = useAppSelector(state => state.card.deck)
   const convertName = (name: string) => {
     return name.split(' // ')[0]
   }
@@ -82,7 +85,7 @@ export function CardList ({
     return (
       <ul className={style['card-list']}>
         {cards.map(card => (
-          <li key={card.id} className={style['card-list-item']}>
+          <li data-in-deck-when-adding={forAdding && !!deck?.find(item => item.id === card.id)} key={card.id} className={style['card-list-item']}>
             <div className={style['card-list-item__header']}>
               <span>
                 {convertName(card.name)}
@@ -99,7 +102,7 @@ export function CardList ({
               <span>
                 {card.cmc} CMC
               </span>
-              <CardListItemAdd card={card} />
+              <CardListItemAdd disabled={deck ? (deck.length >= 30 || deck.includes(card)) : false} card={card} />
             </div>
           </li>
         ))}

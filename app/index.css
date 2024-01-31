@@ -15,6 +15,7 @@
   --main-red: #C52929;
   --general-border-width: 1px;
   --nav-height: Calc(4.25rem + var(--general-border-width));
+  --nav-height-times-two: Calc(var(--nav-height) * 2);
 }
 
 @font-face {
@@ -32,6 +33,10 @@ html {
   font-size: 93.75%;
 }
 
+.app {
+  @apply grid sm:grid-cols-2 md:grid-cols-[1fr_2fr];
+}
+
 .wrapper {
   width: 100%;
   max-width: 1200px;
@@ -45,6 +50,11 @@ html {
 .main-transition:hover,
 .main-transition:focus {
   opacity: 0.5
+}
+
+.body-fixed {
+  width: 100%;
+  overflow: hidden;
 }
 
 @media (min-width: 576px){

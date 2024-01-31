@@ -16,7 +16,7 @@ export default function RootLayout({
         <script src="http://localhost:3000"></script>
       </Head>
       <Navigation />
-        {children}
+      {children}
     </div>
   )
 }
