@@ -1,5 +1,6 @@
 import Image from 'next/image'
 import style from './AverageMana.module.scss'
+import manaWheel from '@/public/mana-wheel.svg'
 export function AverageMana({ 
   mana 
 }: Readonly<{
@@ -8,7 +9,7 @@ export function AverageMana({
   return (
     <div className={style['general-mana']}>
       <Image
-        src="/mana-wheel.svg"
+        src={manaWheel}
         priority={true}
         width="195"
         height="185"

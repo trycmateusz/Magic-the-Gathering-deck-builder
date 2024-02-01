@@ -36,14 +36,14 @@ export function InputCheckboxWithLabel ({
         className={`main-transition ${style['box__input']}`}
         type="checkbox"
         checked={checked}
-        name={name}
+        name={filterLabel}
         value={name}
         id={name} 
       />
       <label className={style['box__label']} htmlFor={name}>
         {label}
       </label>
-      <span aria-hidden="true" onClick={handleOnChange} className={style['checkbox']} />
+      <span tabIndex={0} aria-hidden="true" onClick={handleOnChange} className={style['checkbox']} />
     </div>
   )
 }

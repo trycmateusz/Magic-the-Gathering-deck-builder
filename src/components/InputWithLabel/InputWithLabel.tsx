@@ -36,7 +36,7 @@ export function InputWithLabel ({
         onMouseDown={() => onMouseDown}
         className={`main-transition ${style['box__input']}`}
         type={type} 
-        name={name}
+        name={label}
         value={value}
         id={name} 
       />

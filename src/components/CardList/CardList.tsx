@@ -6,6 +6,11 @@ import { ManaSymbolEnum, ManaSymbol } from '@/src/types/Mana'
 import style from './CardList.module.scss'
 import { useAppDispatch, useAppSelector } from '@/src/hooks/redux'
 import { addCardToDeck } from '@/redux/cardSlice'
+import manaBlackMini from '@/public/mana-b-mini.svg'
+import manaGreenMini from '@/public/mana-g-mini.svg'
+import manaRedMini from '@/public/mana-r-mini.svg'
+import manaBlueMini from '@/public/mana-u-mini.svg'
+import manaWhiteMini from '@/public/mana-w-mini.svg'
 
 export function CardList ({
   cards,
@@ -25,9 +30,27 @@ export function CardList ({
       mana: ManaSymbol | string
     }>) {
       if(mana in ManaSymbolEnum){
-        return (
-          <Image src={`./mana-${mana}-mini.svg`} alt="" width="25" height="25" />
-        )
+        if(mana === 'B'){
+          return (
+            <Image src={manaBlackMini} alt="" width="25" height="25" />
+          )
+        } else if(mana === 'G'){
+          return (
+            <Image src={manaGreenMini} alt="" width="25" height="25" />
+          )
+        } else if(mana === 'R'){
+          return (
+            <Image src={manaRedMini} alt="" width="25" height="25" />
+          )
+        } else if(mana === 'U'){
+          return (
+            <Image src={manaBlueMini} alt="" width="25" height="25" />
+          )
+        } else {
+          return (
+            <Image src={manaWhiteMini} alt="" width="25" height="25" />
+          )
+        }
       }
       else {
         return (
