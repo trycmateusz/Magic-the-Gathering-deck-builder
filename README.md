@@ -8,7 +8,7 @@ Also, I focused on how to fetch the data the most efficiently from the API I was
 Because of that, throughtout the creating process I had to change some of my ideas (sets being fetched instead of a static array for example).
 Another thing in terms of efficiency is the cards are fetched after no filters are changed for a certain amount of time.<br>
 This was a revision of React for me, beacause for some time I focused mainly on Vue and it's libraries.
-This task made me realize that I can work very effectively even with tight deadlines and tools I'm not 100% comfortable with.
+This task made me realize that I can work very effectively even with tight deadlines and tools that usually aren't my go-to.
 At the end I'm very happy with how the whole thing turned out, even though it's a simple application : D .
 <br>
 <img src="https://github.com/trycmateusz/trycmateusz/blob/main/aintmuch.jpg?raw=true" alt="A farmer looking at the camera with the text `it ain't much, but it's honest work`" width="240" />
