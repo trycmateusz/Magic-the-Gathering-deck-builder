@@ -1,9 +1,16 @@
 # Magic the Gathering Deck Builder - Recrutiment Task.
 
 This project was made for a recruitment task for [Loyaltek](https://www.loyaltek.com).<br>
-This was a revision of React for me, since I focused mainly on Vue and it's libraries.<br>
+It's an app that fetches data from ([Magic the Gathering Developers](https://docs.magicthegathering.io)) and uses it to create your own Magic the Gathering deck.<br>
+My task was to make it possible to create a deck, view it's average mana cost and check for it's cards maximum amount.<br>
+I highlighted the aspects of the challenge by creating a component that was avaiable on both pages and updated the data accordingly to user adding more cards to the deck.<br>
+Also, I focused on how to fetch the data the most efficiently from the API I was provided with.<br>
+Because of that, throughtout the creating process I had to change some of my ideas (sets being fetched instead of a static array for example).<br>
+Another thing in terms of efficiency is the cards are fetched after no filters are changed for a certain amount of time.<br>
+This was a revision of React for me, beacause for some time I focused mainly on Vue and it's libraries.<br>
 This task made me realize that I can work very effectively even with tight deadlines and tools I'm not 100% comfortable with.<br>
 At the end I'm very happy with how the whole thing turned out, even though it's a simple application : D .<br>
+<br>
 <img src="https://github.com/trycmateusz/trycmateusz/blob/main/aintmuch.jpg?raw=true" alt="A farmer looking at the camera with the text `it ain't much, but it's honest work`" width="240" />
 
 ## Features
