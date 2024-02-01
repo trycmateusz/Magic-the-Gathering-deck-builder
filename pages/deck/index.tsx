@@ -16,7 +16,7 @@ export default function Deck() {
       if(deckFiltered){
         if(deckFiltered.length > 0){
           return (
-            <CardList forAdding={false} cards={deckFiltered} />
+            <CardList forDeck={true} cards={deckFiltered} />
           )
         }
         else {
@@ -34,7 +34,7 @@ export default function Deck() {
       }
       else if(deck.length > 0){
         return (
-          <CardList forAdding={false} cards={deck} />
+          <CardList forDeck={true} cards={deck} />
         )
       }
       else {

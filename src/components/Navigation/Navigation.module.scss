@@ -5,7 +5,7 @@
     &-item {
       @apply relative border-r border-main-black-lighter last:border-0 overflow-hidden;
       &-link {
-        @apply block px-10 py-5
+        @apply block px-10 py-5 text-center;
       }
     }
   }

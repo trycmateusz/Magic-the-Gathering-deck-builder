@@ -1,5 +1,5 @@
 .aside {
-  @apply sticky top-[var(--nav-height-times-two)] flex flex-col items-center h-[Calc(100svh_-_var(--nav-height))] border-r border-main-black-lighter divide-solid z-40 overflow-hidden;
+  @apply sticky top-[var(--nav-height-times-two)] flex flex-col items-center h-[Calc(100svh_-_var(--nav-height))] bg-main-black border-r border-main-black-lighter divide-solid z-40 overflow-hidden;
   &__info {
     @apply flex flex-col w-full items-center p-5 border-b border-main-black-lighter;
     &-text {

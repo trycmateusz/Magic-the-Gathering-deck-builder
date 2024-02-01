@@ -9,10 +9,10 @@ import { addCardToDeck } from '@/redux/cardSlice'
 
 export function CardList ({
   cards,
-  forAdding
+  forDeck
 }: Readonly<{
   cards: Card[]
-  forAdding: boolean
+  forDeck: boolean
 }>) {
   function ManaCost ({ 
     manaCost 
@@ -26,7 +26,7 @@ export function CardList ({
     }>) {
       if(mana in ManaSymbolEnum){
         return (
-          <Image src={`/mana-${mana}-mini.svg`} alt="" width="25" height="25" />
+          <Image src={`./mana-${mana}-mini.svg`} alt="" width="25" height="25" />
         )
       }
       else {
@@ -53,24 +53,53 @@ export function CardList ({
       )
     }
   }
+  function CardListItemAmount ({
+    amountMessage
+  }: Readonly<{
+    amountMessage: string
+  }>){
+    return (
+      <span className={style['card-list-item__footer-amount']}>
+        {amountMessage}
+      </span>
+    )
+  }
   function CardListItemAdd ({ 
     card,
-    disabled
   }: Readonly<{
     card: Card
-    disabled: boolean
   }>) {
-    if(forAdding){
-      return (
-        <button onClick={() => dispatch(addCardToDeck(card))} disabled={disabled} className={cardListItemFooterAddClassname}>
-          +
-        </button>
-      )
+    if(!forDeck){
+      if(deck && amountInDeck(card) > 0){
+        return (
+          <div className={style['card-list-item__footer-wrapper']}>
+            <CardListItemAmount amountMessage={`${amountInDeck(card)} added`} />
+            <button onClick={() => dispatch(addCardToDeck(card))} className={cardListItemFooterAddClassname}>
+              +
+            </button>
+          </div>
+        )
+      }
+      else {
+        return (
+          <div>
+            <button onClick={() => dispatch(addCardToDeck(card))} className={cardListItemFooterAddClassname}>
+              +
+            </button>
+          </div>
+        )
+      }
     }
     else {
-      return (
-        null
-      )
+      if(deck && amountInDeck(card) > 1)
+        return (
+          <CardListItemAmount amountMessage={`${amountInDeck(card)} in deck`} />
+        )
+      else {
+        return (
+          null
+        )
+      }
     }
   }
   const dispatch = useAppDispatch()
@@ -78,14 +107,20 @@ export function CardList ({
   const convertName = (name: string) => {
     return name.split(' // ')[0]
   }
+  const amountInDeck = (card: Card) => {
+    if(deck){
+      return deck.filter(item => item.id === card.id).length
+    }
+    return 0
+  }
   const cardListItemFooterAddClassname = (() => {
     return `${style['card-list-item__footer-add']} main-transition`
   })()
   if(cards.length > 0){
     return (
       <ul className={style['card-list']}>
-        {cards.map(card => (
-          <li data-in-deck-when-adding={forAdding && !!deck?.find(item => item.id === card.id)} key={card.id} className={style['card-list-item']}>
+        {cards.filter((card, index, arr) => arr.findIndex(item => item.id === card.id) === index).map(card => (
+          <li key={card.id} className={style['card-list-item']}>
             <div className={style['card-list-item__header']}>
               <span>
                 {convertName(card.name)}
@@ -102,7 +137,7 @@ export function CardList ({
               <span className="text-mana-gray">
                 {card.types?.includes('Land') ? 'Land' : `${card.cmc} CMC`}
               </span>
-              <CardListItemAdd disabled={deck ? (deck.length >= 30 || deck.includes(card)) : false} card={card} />
+              <CardListItemAdd card={card} />
             </div>
           </li>
         ))}

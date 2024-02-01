@@ -41,9 +41,7 @@ const cardSlice = createSlice({
         state.deck = [action.payload]
       }
       else if(state.deck.length < state.maxCards) {
-        if(state.deck.findIndex(card => card.id === action.payload.id) === -1){
-          state.deck.push(action.payload)
-        }
+        state.deck.push(action.payload)
       }
     },
     filterCards(state, action: PayloadAction<Filters>){

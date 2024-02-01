@@ -22,7 +22,7 @@ export default function Home() {
       if(cardsFiltered){
         if(cardsFiltered.length > 0){
           return (
-            <CardList forAdding={true} cards={cardsFiltered} />
+            <CardList forDeck={false} cards={cardsFiltered} />
           )
         }
         else {

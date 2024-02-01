@@ -1,5 +1,5 @@
 .aside__expander {
-  @apply sticky top-[var(--nav-height)] flex w-full justify-end border-b border-main-black-lighter text-lg;
+  @apply sticky top-[var(--nav-height)] flex w-full justify-end border-b bg-main-black border-main-black-lighter text-lg;
   &-btn {
     @apply p-5;
   }
