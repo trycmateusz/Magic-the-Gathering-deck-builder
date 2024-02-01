@@ -1,36 +1,47 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Magic the Gathering Deck Builder - Recrutiment Task.
 
-## Getting Started
+This project was made for a recruitment task for [Loyaltek](https://www.loyaltek.com).
+This was a revision of React for me, since I focused mainly on Vue and it's libraries.
+This task made me realize that I can work very effectively even with tight deadlines and tools I'm not 100% comfortable with.
+At the end I'm very happy with how the whole thing turned out, even though it's a simple application : D .
+![A farmer looking at the camera with the text "it ain't much, but it's honest work"](https://github.com/trycmateusz/trycmateusz/blob/main/aintmuch.jpg?raw=true)
 
-First, run the development server:
+## Features
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+- advanced filtering
+- RWD
+- an original design
+- acessible to screen readers
+- user friendly
+- versatile components
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Functionality
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Here's a list of all the different things you can do on this site:
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+### Adding cards to deck
 
-## Learn More
+- ability to add cards to your deck (also multiple instances of one card)
+- using many filters to fetch specific cards from API and view them
+- fetching specific card set's and fetching it's cards
+- quick filter reset
 
-To learn more about Next.js, take a look at the following resources:
+### Viewing your deck
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- having the info about your deck's average mana cost at all times
+- having the info about the amount of cards in your deck (as well as a maximum and minimum amount)
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+while on /deck:
 
-## Deploy on Vercel
+- possibility to filter your deck with the same filters provided when adding cards to a deck
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Live: [https://magic-the-gathering-deck-builder.vercel.app](https://magic-the-gathering-deck-builder.vercel.app)
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+## Techstack
+- Next.js
+- React
+- TypeScript
+- REST API ([Magic the Gathering Developers](https://docs.magicthegathering.io))
+- Redux
+- Tailwind CSS
+- Sass
