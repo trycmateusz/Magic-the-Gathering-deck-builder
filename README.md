@@ -1,10 +1,10 @@
 # Magic the Gathering Deck Builder - Recrutiment Task.
 
-This project was made for a recruitment task for [Loyaltek](https://www.loyaltek.com).
-This was a revision of React for me, since I focused mainly on Vue and it's libraries.
-This task made me realize that I can work very effectively even with tight deadlines and tools I'm not 100% comfortable with.
-At the end I'm very happy with how the whole thing turned out, even though it's a simple application : D .
-![A farmer looking at the camera with the text "it ain't much, but it's honest work"](https://github.com/trycmateusz/trycmateusz/blob/main/aintmuch.jpg?raw=true)
+This project was made for a recruitment task for [Loyaltek](https://www.loyaltek.com).<br>
+This was a revision of React for me, since I focused mainly on Vue and it's libraries.<br>
+This task made me realize that I can work very effectively even with tight deadlines and tools I'm not 100% comfortable with.<br>
+At the end I'm very happy with how the whole thing turned out, even though it's a simple application : D .<br>
+<img src="https://github.com/trycmateusz/trycmateusz/blob/main/aintmuch.jpg?raw=true" alt="A farmer looking at the camera with the text `it ain't much, but it's honest work`" width="240" />
 
 ## Features
 
