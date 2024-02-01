@@ -194,7 +194,7 @@ export function Aside ({
   return (
     <aside data-filters-expanded={filtersExpanded} className={style['aside']}>
       <div className={style['aside__info']}>
-        <span className={style['aside__info-text']}>
+        <span id="average-mana-label" className={style['aside__info-text']}>
           Deck&apos;s average mana cost
         </span>
         <AverageMana mana={averageManaCost} />

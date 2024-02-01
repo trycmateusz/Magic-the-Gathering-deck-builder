@@ -73,7 +73,7 @@ export function SearchBar({
     else {
       if(options && hasOptions){
         return (
-          <ul className={style['search-bar__options']}>
+          <ul aria-label="Search bar results" className={style['search-bar__options']}>
           {options.map(option => (
             <li key={getKeyAndText(option).key}>
               <button onMouseDown={() => handleOptionChosen(option)} className={searchBarOptionClassname}>

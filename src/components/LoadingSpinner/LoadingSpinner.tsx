@@ -15,7 +15,7 @@ export function LoadingSpinner ({
       size={size}
       loading={isLoading}
       cssOverride={styling}
-      aria-label="Loading spiner"
+      aria-label="Loading spinner"
     />
   )
 }

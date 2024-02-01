@@ -16,6 +16,6 @@ export function BackgroundGlow ({
     }
   })()
   return (
-    <div className={className} />
+    <div aria-hidden="true" className={className} />
   ) 
 }

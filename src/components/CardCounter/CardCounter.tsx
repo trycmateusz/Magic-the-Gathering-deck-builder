@@ -23,7 +23,7 @@ export function CardCounter ({
   })()
   return (
     <div className={style['card-counter']}>
-      <div className={style['card-counter__count']}>
+      <div aria-label="Amount of cards in your deck and deck's max length" className={style['card-counter__count']}>
         <span>
           {cardsLength}
         </span>
@@ -40,7 +40,7 @@ export function CardCounter ({
         />
       </div>
       <div className={style['card-counter__min']}>
-        <span className={cardCounterMinTextClassname}>
+        <span aria-label="Deck's minimum length" className={cardCounterMinTextClassname}>
           min. {minCards}
         </span>
         <BackgroundGlow conditionMet={hasMinimumAmountOfCards()} />

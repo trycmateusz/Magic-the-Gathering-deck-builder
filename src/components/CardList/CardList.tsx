@@ -145,9 +145,9 @@ export function CardList ({
         {cards.filter((card, index, arr) => arr.findIndex(item => item.id === card.id) === index).map(card => (
           <li key={card.id} className={style['card-list-item']}>
             <div className={style['card-list-item__header']}>
-              <span>
+              <h2>
                 {convertName(card.name)}
-              </span>
+              </h2>
               <ManaCost manaCost={card.manaCost} />
             </div>
             <span className={style['card-list-item__type']}>
