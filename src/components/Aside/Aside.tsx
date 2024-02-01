@@ -197,7 +197,7 @@ export function Aside ({
         <span id="average-mana-label" className={style['aside__info-text']}>
           Deck&apos;s average mana cost
         </span>
-        <AverageMana mana={averageManaCost} />
+        <AverageMana labeledById="average-mana-label" mana={averageManaCost} />
         <CardCounter cardsLength={deckLength} />
       </div>
       <button onClick={resetFilters} className={`main-transition ${style['aside__reset']}`}>
