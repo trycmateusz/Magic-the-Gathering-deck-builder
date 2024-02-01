@@ -4,6 +4,7 @@ import type { Card } from '@/src/types/Card'
 import Image from 'next/image'
 import { ManaSymbolEnum, ManaSymbol } from '@/src/types/Mana'
 import style from './CardList.module.scss'
+import { useState, useEffect } from 'react'
 import { useAppDispatch, useAppSelector } from '@/src/hooks/redux'
 import { addCardToDeck } from '@/redux/cardSlice'
 import manaBlackMini from '@/public/mana-b-mini.svg'
@@ -89,15 +90,17 @@ export function CardList ({
   }
   function CardListItemAdd ({ 
     card,
+    disabled
   }: Readonly<{
     card: Card
+    disabled: boolean
   }>) {
     if(!forDeck){
       if(deck && amountInDeck(card) > 0){
         return (
           <div className={style['card-list-item__footer-wrapper']}>
             <CardListItemAmount amountMessage={`${amountInDeck(card)} added`} />
-            <button onClick={() => dispatch(addCardToDeck(card))} className={cardListItemFooterAddClassname}>
+            <button disabled={disabled} onClick={() => dispatch(addCardToDeck(card))} className={cardListItemFooterAddClassname}>
               +
             </button>
           </div>
@@ -106,7 +109,7 @@ export function CardList ({
       else {
         return (
           <div>
-            <button onClick={() => dispatch(addCardToDeck(card))} className={cardListItemFooterAddClassname}>
+            <button disabled={disabled} onClick={() => dispatch(addCardToDeck(card))} className={cardListItemFooterAddClassname}>
               +
             </button>
           </div>
@@ -127,6 +130,8 @@ export function CardList ({
   }
   const dispatch = useAppDispatch()
   const deck = useAppSelector(state => state.card.deck)
+  const maxCards = useAppSelector(state => state.card.maxCards)
+  const [isButtonDisabled, setIsButtonDisabled] = useState(false)
   const convertName = (name: string) => {
     return name.split(' // ')[0]
   }
@@ -139,6 +144,11 @@ export function CardList ({
   const cardListItemFooterAddClassname = (() => {
     return `${style['card-list-item__footer-add']} main-transition`
   })()
+  useEffect(() => {
+    if(maxCards === deck?.length){
+      setIsButtonDisabled(true)
+    }
+  }, [maxCards, deck])
   if(cards.length > 0){
     return (
       <ul className={style['card-list']}>
@@ -160,7 +170,7 @@ export function CardList ({
               <span className="text-mana-gray">
                 {card.types?.includes('Land') ? 'Land' : `${card.cmc} CMC`}
               </span>
-              <CardListItemAdd card={card} />
+              <CardListItemAdd disabled={isButtonDisabled} card={card} />
             </div>
           </li>
         ))}

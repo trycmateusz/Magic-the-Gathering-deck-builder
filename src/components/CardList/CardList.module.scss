@@ -20,7 +20,10 @@
     &__footer {
       @apply flex mt-auto items-center justify-between;
       &-add {
-        @apply text-2xl w-10 h-10 bg-main-black aspect-square text-main-white;
+        @apply text-2xl w-10 h-10 bg-main-black aspect-square text-main-white transition-opacity;
+        &:disabled {
+          @apply cursor-not-allowed opacity-30;
+        }
       }
       &-amount {
         @apply block h-min text-mana-gray;
